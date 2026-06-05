@@ -182,7 +182,7 @@ export default function HeroSection() {
                   ))}
                 </div>
                 <div style={{ fontSize: 12, color: '#64748B', fontWeight: 500 }}>
-                  <span style={{ fontWeight: 700, color: '#0F172A' }}>1,200+</span> mijoz ishonadi
+                  <span style={{ fontWeight: 700, color: '#0F172A' }}>1,200+</span> {t.hero.socialProof}
                 </div>
               </div>
             </motion.div>
@@ -190,6 +190,7 @@ export default function HeroSection() {
 
           {/* Right: Product Image */}
           <motion.div
+            className="hero-image-container"
             initial={{ opacity: 0, scale: 0.9, x: 40 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
@@ -208,7 +209,7 @@ export default function HeroSection() {
               }}
             >
               <Image
-                src="/hero-product.png"
+                src="/hero-product-new.png"
                 alt="Kamafarm Healthcare Premium Products"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -236,7 +237,7 @@ export default function HeroSection() {
               }}
             >
               <div style={{ fontSize: 24, fontWeight: 900, color: '#04432C', letterSpacing: '-0.03em' }}>50+</div>
-              <div style={{ fontSize: 11, color: '#64748B', fontWeight: 500, marginTop: 2 }}>Premium mahsulotlar</div>
+              <div style={{ fontSize: 11, color: '#64748B', fontWeight: 500, marginTop: 2 }}>{t.hero.badgeProducts}</div>
             </motion.div>
 
             {/* Floating stat card 2 */}
@@ -252,7 +253,7 @@ export default function HeroSection() {
               }}
             >
               <div style={{ fontSize: 24, fontWeight: 900, color: '#34D399', letterSpacing: '-0.03em' }}>GMP</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', fontWeight: 500, marginTop: 2 }}>Sertifikatlangan</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', fontWeight: 500, marginTop: 2 }}>{t.hero.badgeGmp}</div>
             </motion.div>
           </motion.div>
         </div>
@@ -269,7 +270,7 @@ export default function HeroSection() {
           onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
         >
           <span style={{ fontSize: 11, color: '#94A3B8', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Pastga suring
+            {t.hero.scrollDown}
           </span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
@@ -286,6 +287,9 @@ export default function HeroSection() {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
             padding: 40px 0 20px !important;
+          }
+          .hero-image-container {
+            display: none !important;
           }
         }
       `}</style>

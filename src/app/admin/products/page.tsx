@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Plus, Edit2, Trash2, X, Save, Package } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Save, Package, Image as ImageIcon } from 'lucide-react';
 import type { Product } from '@/lib/types';
 
 const categories = ['Miya faoliyati', 'Kamqonlik', 'Bolalar uchun', 'Kattalar uchun'];
@@ -24,9 +24,42 @@ function ProductFormModal({ product, onSave, onClose }: {
   onClose: () => void;
 }) {
   const [form, setForm] = useState<Partial<Product>>(product || emptyProduct);
+  const [uploading, setUploading] = useState(false);
 
   const update = (key: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleImageUpload = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    setUploading(true);
+
+    const token = localStorage.getItem('kamafarm_admin_token') || 'kamafarm-admin-2026';
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        setForm((prev) => ({ ...prev, image: data.url }));
+      } else {
+        alert('Rasm yuklashda xatolik: ' + (data.error || 'Noma\'lum xatolik'));
+      }
+    } catch (e) {
+      console.error('[Product Image Upload]', e);
+      alert('Rasm yuklashda tarmoq xatoligi yuz berdi');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const inputStyle = {
@@ -72,6 +105,50 @@ function ProductFormModal({ product, onSave, onClose }: {
 
         {/* Form */}
         <div style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {/* Image Upload */}
+          <div>
+            <label style={labelStyle}>Mahsulot rasmi</label>
+            <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+              <div style={{
+                width: 80, height: 80, borderRadius: 12, border: '1px solid #E2E8F0',
+                overflow: 'hidden', background: '#F8FAFC', position: 'relative',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+              }}>
+                {uploading ? (
+                  <span style={{
+                    width: 20, height: 20, border: '2px solid rgba(4,67,44,0.2)',
+                    borderTop: '2px solid #04432C', borderRadius: '50%',
+                    animation: 'spin 0.8s linear infinite',
+                    display: 'inline-block',
+                  }} />
+                ) : form.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={form.image} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <ImageIcon size={24} color="#94A3B8" />
+                )}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <label style={{
+                  padding: '8px 16px', background: '#04432C', color: 'white',
+                  borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer',
+                  display: 'inline-block', transition: 'all 0.15s ease'
+                }}>
+                  Rasm yuklash...
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleImageUpload(e.target.files)}
+                  />
+                </label>
+                <div style={{ fontSize: 11, color: '#64748B' }}>
+                  Hajmi max 5MB, formatlar: PNG, JPG, JPEG, WebP
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Category */}
           <div>
             <label style={labelStyle}>Kategoriya</label>
@@ -370,6 +447,9 @@ export default function ProductsAdminPage() {
           </motion.div>
         )}
       </AnimatePresence>
+      <style>{`
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      `}</style>
     </div>
   );
 }

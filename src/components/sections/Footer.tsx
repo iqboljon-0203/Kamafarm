@@ -4,32 +4,22 @@ import { Leaf, Camera, Send, MessageCircle, Share2, Phone, MapPin, ArrowRight } 
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
-const socialLinks = [
-  {
-    icon: Camera,
-    label: 'Instagram',
-    href: 'https://instagram.com/kamafarm.healthcare',
-    color: '#E1306C',
-  },
-  {
-    icon: Send,
-    label: 'Telegram',
-    href: 'https://t.me/kamafarm_bot',
-    color: '#0088cc',
-  },
-  {
-    icon: MessageCircle,
-    label: 'Kanal',
-    href: 'https://t.me/kamafarm_channel',
-    color: '#229ED9',
-  },
-  {
-    icon: Share2,
-    label: 'Facebook',
-    href: 'https://facebook.com/kamafarm',
-    color: '#1877F2',
-  },
-];
+const getSocialMeta = (label: string) => {
+  switch (label.toLowerCase()) {
+    case 'instagram':
+      return { icon: Camera, color: '#E1306C' };
+    case 'telegram':
+      return { icon: Send, color: '#0088cc' };
+    case 'kanal':
+    case 'channel':
+    case 'telegram_channel':
+      return { icon: MessageCircle, color: '#229ED9' };
+    case 'facebook':
+      return { icon: Share2, color: '#1877F2' };
+    default:
+      return { icon: Share2, color: '#10B981' };
+  }
+};
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -58,18 +48,9 @@ export default function Footer() {
           {/* Column 1: Brand */}
           <div>
             {/* Logo */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-              <div style={{
-                width: 44, height: 44, borderRadius: '50%',
-                background: 'white',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                position: 'relative', overflow: 'hidden'
-              }}>
-                <Image src="/logo.png" alt="Kamafarm Logo" fill sizes="44px" style={{ objectFit: 'contain', padding: 2 }} />
-              </div>
-              <div>
-                <div style={{ fontWeight: 900, fontSize: 18, letterSpacing: '-0.02em' }}>Kamafarm</div>
-                <div style={{ fontSize: 11, color: '#34D399', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Healthcare</div>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
+              <div style={{ position: 'relative', width: 220, height: 44 }}>
+                <Image src="/logo-v2.png" alt="Kamafarm Healthcare" fill sizes="220px" style={{ objectFit: 'contain', objectPosition: 'left' }} />
               </div>
             </div>
 
@@ -79,27 +60,30 @@ export default function Footer() {
 
             {/* Social links */}
             <div style={{ display: 'flex', gap: 10 }}>
-              {socialLinks.map(({ icon: Icon, label, href, color }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={label}
-                  style={{
-                    width: 40, height: 40, borderRadius: 12,
-                    background: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s ease',
-                  }}
-                  whileHover={{ scale: 1.1, background: color } as Parameters<typeof motion.a>[0]['whileHover']}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Icon size={18} color="white" strokeWidth={1.8} />
-                </motion.a>
-              ))}
+              {(t.footer.socialLinks || []).map(({ label, href }) => {
+                const { icon: Icon, color } = getSocialMeta(label);
+                return (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={label}
+                    style={{
+                      width: 40, height: 40, borderRadius: 12,
+                      background: 'rgba(255,255,255,0.08)',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s ease',
+                    }}
+                    whileHover={{ scale: 1.1, background: color } as Parameters<typeof motion.a>[0]['whileHover']}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Icon size={18} color="white" strokeWidth={1.8} />
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
 
@@ -144,10 +128,10 @@ export default function Footer() {
           {/* Column 3: Products nav */}
           <div>
             <h3 style={{ fontSize: 13, fontWeight: 700, color: 'white', marginBottom: 20, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-              Mahsulotlar
+              {t.nav.products}
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {['Fiziobrain DHA', 'Ferro-Glob', 'VitaKids Gummies', 'Omega-3 Premium', 'Neuro Complex', 'BabyCare D3'].map((name) => (
+              {['Fiziobrain DHA', 'Ferro-Glob', 'Fiziobrain Kid Drop'].map((name) => (
                 <a
                   key={name}
                   href="#products"
@@ -215,10 +199,10 @@ export default function Footer() {
               borderRadius: 10, border: '1px solid rgba(255,255,255,0.06)',
             }}>
               <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
-                Ish vaqti
+                {(t.footer as any).workingHoursLabel}
               </div>
               <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>
-                Du — Sha: 09:00 – 18:00
+                {(t.footer as any).workingHours}
               </div>
             </div>
           </div>
@@ -234,9 +218,12 @@ export default function Footer() {
             {t.footer.copyright}
           </div>
           <div style={{ display: 'flex', gap: 20 }}>
-            {['Maxfiylik siyosati', 'Foydalanish shartlari'].map((item) => (
+            {[
+              { label: (t.footer as any).privacyPolicy, key: 'privacy' },
+              { label: (t.footer as any).termsOfUse, key: 'terms' }
+            ].map((item) => (
               <a
-                key={item}
+                key={item.key}
                 href="#"
                 style={{
                   fontSize: 12, color: 'rgba(255,255,255,0.4)',
@@ -246,7 +233,7 @@ export default function Footer() {
                 onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#34D399'; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.4)'; }}
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>

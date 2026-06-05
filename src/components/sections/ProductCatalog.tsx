@@ -23,6 +23,7 @@ function ProductModal({ product, onClose, lang, t }: {
   lang: 'uz' | 'ru';
   t: ReturnType<typeof useLanguage>['t'];
 }) {
+  const [activeTab, setActiveTab] = useState<'info' | 'leaflet'>('info');
   const name = lang === 'uz' ? product.name_uz : product.name_ru;
   const description = lang === 'uz' ? product.description_uz : product.description_ru;
   const composition = lang === 'uz' ? product.composition_uz : product.composition_ru;
@@ -42,14 +43,16 @@ function ProductModal({ product, onClose, lang, t }: {
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ type: 'spring', bounce: 0.3, duration: 0.5 }}
         style={{
-          background: 'white', borderRadius: 24,
+          background: 'var(--card-bg)', borderRadius: 24,
           maxWidth: 640, width: '100%', maxHeight: '90vh',
-          overflow: 'auto', position: 'relative',
-          boxShadow: '0 40px 100px rgba(0,0,0,0.2)',
+          overflow: 'hidden', position: 'relative',
+          boxShadow: 'var(--shadow-lg)',
+          border: '1px solid var(--border)',
+          display: 'flex', flexDirection: 'column',
         }}
       >
         {/* Image header */}
-        <div style={{ position: 'relative', height: 240, borderRadius: '24px 24px 0 0', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', height: 200, flexShrink: 0, overflow: 'hidden' }}>
           <Image src={product.image} alt={name} fill sizes="(max-width: 640px) 100vw, 640px" style={{ objectFit: 'cover' }} />
           <div style={{
             position: 'absolute', inset: 0,
@@ -75,6 +78,7 @@ function ProductModal({ product, onClose, lang, t }: {
             border: '1px solid rgba(255,255,255,0.3)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             cursor: 'pointer', color: 'white',
+            zIndex: 10,
           }}>
             <X size={16} />
           </button>
@@ -86,54 +90,143 @@ function ProductModal({ product, onClose, lang, t }: {
           </div>
         </div>
 
-        {/* Content */}
-        <div style={{ padding: '28px 28px 32px' }}>
-          {/* Description */}
-          <p style={{ fontSize: 14, lineHeight: 1.75, color: '#475569', marginBottom: 24 }}>
-            {description}
-          </p>
+        {/* Scrollable Content Container */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '24px 28px 32px', display: 'flex', flexDirection: 'column' }}>
+          {/* Tab Switcher */}
+          {product.leaflet_uz && (
+            <div style={{
+              display: 'flex',
+              borderBottom: '1.5px solid var(--border)',
+              marginBottom: 20,
+              gap: 20,
+            }}>
+              <button
+                onClick={() => setActiveTab('info')}
+                style={{
+                  padding: '10px 4px',
+                  border: 'none',
+                  background: 'transparent',
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: activeTab === 'info' ? '#10B981' : 'var(--text-muted)',
+                  borderBottom: activeTab === 'info' ? '2.5px solid #10B981' : '2.5px solid transparent',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                  transition: 'all 0.15s ease',
+                  outline: 'none',
+                }}
+              >
+                {lang === 'uz' ? 'Umumiy ma\'lumot' : 'Общая информация'}
+              </button>
+              <button
+                onClick={() => setActiveTab('leaflet')}
+                style={{
+                  padding: '10px 4px',
+                  border: 'none',
+                  background: 'transparent',
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: activeTab === 'leaflet' ? '#10B981' : 'var(--text-muted)',
+                  borderBottom: activeTab === 'leaflet' ? '2.5px solid #10B981' : '2.5px solid transparent',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                  transition: 'all 0.15s ease',
+                  outline: 'none',
+                }}
+              >
+                {lang === 'uz' ? 'Foydalanish bo\'yicha yo\'riqnoma' : 'Инструкция по применению'}
+              </button>
+            </div>
+          )}
 
-          {/* Composition */}
-          <div style={{ marginBottom: 24 }}>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12,
-            }}>
-              <div style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(4,67,44,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Beaker size={14} color="#04432C" />
-              </div>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#04432C', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                {t.products.compositionLabel}
-              </span>
-            </div>
-            <div style={{
-              background: '#F8FAFC', border: '1px solid #E2E8F0',
-              borderRadius: 12, padding: '14px 16px',
-              fontSize: 13, lineHeight: 1.7, color: '#374151',
-            }}>
-              {composition}
-            </div>
-          </div>
+          {activeTab === 'info' ? (
+            <div>
+              {/* Description */}
+              <p style={{ fontSize: 14, lineHeight: 1.75, color: 'var(--text-muted)', marginBottom: 24 }}>
+                {description}
+              </p>
 
-          {/* Usage */}
-          <div style={{ marginBottom: 28 }}>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12,
-            }}>
-              <div style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(16,185,129,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ChevronRight size={14} color="#10B981" />
+              {/* Composition */}
+              <div style={{ marginBottom: 24 }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12,
+                }}>
+                  <div style={{ width: 28, height: 28, borderRadius: 8, background: 'var(--accent-glow)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Beaker size={14} color="var(--primary)" />
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    {t.products.compositionLabel}
+                  </span>
+                </div>
+                <div style={{
+                  background: 'var(--light-2)', border: '1px solid var(--border)',
+                  borderRadius: 12, padding: '14px 16px',
+                  fontSize: 13, lineHeight: 1.7, color: 'var(--dark)',
+                }}>
+                  {composition}
+                </div>
               </div>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#10B981', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                {t.products.usageLabel}
-              </span>
+
+              {/* Usage */}
+              <div style={{ marginBottom: 28 }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12,
+                }}>
+                  <div style={{ width: 28, height: 28, borderRadius: 8, background: 'var(--accent-glow)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ChevronRight size={14} color="var(--accent)" />
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    {t.products.usageLabel}
+                  </span>
+                </div>
+                <div style={{
+                  background: 'var(--accent-glow)', border: '1px solid rgba(16,185,129,0.25)',
+                  borderRadius: 12, padding: '14px 16px',
+                  fontSize: 13, lineHeight: 1.7, color: 'var(--dark)',
+                }}>
+                  {usage}
+                </div>
+              </div>
             </div>
-            <div style={{
-              background: '#F0FDF4', border: '1px solid rgba(16,185,129,0.15)',
-              borderRadius: 12, padding: '14px 16px',
-              fontSize: 13, lineHeight: 1.7, color: '#374151',
-            }}>
-              {usage}
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 28 }}>
+              {(lang === 'uz' ? product.leaflet_uz : product.leaflet_ru)?.map((sec, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: 'var(--light)',
+                    borderRadius: 16,
+                    padding: 16,
+                    border: '1px solid var(--border)',
+                  }}
+                >
+                  <h4 style={{
+                    fontSize: 14,
+                    fontWeight: 800,
+                    color: '#04432C',
+                    marginBottom: 10,
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {sec.title}
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {sec.content.map((p, pIdx) => (
+                      <p
+                        key={pIdx}
+                        style={{
+                          fontSize: 13,
+                          lineHeight: 1.6,
+                          color: 'var(--dark-2)',
+                        }}
+                      >
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
 
           {/* CTA */}
           <a
@@ -141,12 +234,14 @@ function ProductModal({ product, onClose, lang, t }: {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+              display: 'flex', alignItems: 'center', gap: 10,
               padding: '14px 24px', borderRadius: 12,
               background: '#04432C', color: 'white',
               textDecoration: 'none', fontSize: 14, fontWeight: 700,
               boxShadow: '0 8px 24px rgba(4,67,44,0.3)',
               transition: 'all 0.2s ease',
+              marginTop: 'auto',
+              justifyContent: 'center',
             }}
           >
             <Send size={16} />
@@ -178,7 +273,7 @@ function ProductCard({ product, onOpen, lang, t }: {
       style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
     >
       {/* Product Image */}
-      <div style={{ position: 'relative', height: 220, overflow: 'hidden', background: '#F8FAFC' }}>
+      <div className="product-card-image-container" style={{ position: 'relative', height: 220, overflow: 'hidden', background: 'var(--light-2)' }}>
         <Image src={product.image} alt={name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
         {/* Badge */}
         {product.badge && (
@@ -196,26 +291,31 @@ function ProductCard({ product, onOpen, lang, t }: {
         {/* Category tag */}
         <div style={{
           position: 'absolute', bottom: 12, right: 12,
-          background: 'white',
-          color: '#04432C',
+          background: 'var(--card-bg)',
+          color: 'var(--primary)',
           padding: '4px 10px', borderRadius: 100,
           fontSize: 10, fontWeight: 700,
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          border: '1px solid var(--border)',
         }}>
-          {product.category}
+          {(() => {
+            const keys = ['Barchasi', 'Miya faoliyati', 'Kamqonlik', 'Bolalar uchun', 'Kattalar uchun'];
+            const idx = keys.indexOf(product.category);
+            return idx !== -1 ? t.products.filters[idx] : product.category;
+          })()}
         </div>
       </div>
 
       {/* Content */}
       <div style={{ padding: '20px 20px 0', flex: 1 }}>
         <h3 style={{
-          fontSize: 16, fontWeight: 800, color: '#0F172A',
+          fontSize: 16, fontWeight: 800, color: 'var(--dark)',
           letterSpacing: '-0.02em', marginBottom: 8, lineHeight: 1.3,
         }}>
           {name}
         </h3>
         <p style={{
-          fontSize: 13, lineHeight: 1.6, color: '#64748B',
+          fontSize: 13, lineHeight: 1.6, color: 'var(--text-muted)',
           display: '-webkit-box',
           WebkitLineClamp: 3,
           WebkitBoxOrient: 'vertical',
@@ -288,7 +388,7 @@ export default function ProductCatalog() {
 
   return (
     <>
-      <section id="products" className="section-py" style={{ background: '#F8FAFC' }}>
+      <section id="products" className="section-py" style={{ background: 'var(--light)' }}>
         <div className="container">
           {/* Header */}
           <motion.div
@@ -303,11 +403,11 @@ export default function ProductCatalog() {
             <h2 style={{
               fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
               fontWeight: 900, letterSpacing: '-0.03em',
-              color: '#0F172A', marginBottom: 16,
+              color: 'var(--dark)', marginBottom: 16,
             }}>
               {t.products.heading}
             </h2>
-            <p style={{ fontSize: 15, color: '#64748B', maxWidth: 520, margin: '0 auto' }}>
+            <p style={{ fontSize: 15, color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto' }}>
               {t.products.subtitle}
             </p>
           </motion.div>
@@ -351,13 +451,16 @@ export default function ProductCatalog() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
                   width: '100%', padding: '14px 16px 14px 48px',
-                  borderRadius: 16, border: '1px solid #E2E8F0',
+                  borderRadius: 16, border: '1.5px solid var(--border)',
                   fontSize: 15, outline: 'none',
+                  background: 'var(--input-bg)',
+                  color: 'var(--dark)',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.02)',
                   fontFamily: 'inherit',
+                  transition: 'all 0.2s ease',
                 }}
-                onFocus={(e) => e.target.style.borderColor = '#10B981'}
-                onBlur={(e) => e.target.style.borderColor = '#E2E8F0'}
+                onFocus={(e) => e.target.style.borderColor = 'var(--accent)'}
+                onBlur={(e) => e.target.style.borderColor = 'var(--border)'}
               />
             </motion.div>
           </div>

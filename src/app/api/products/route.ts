@@ -1,23 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase';
+import { DEFAULT_PRODUCTS } from '@/lib/constants';
 
 export async function GET(req: NextRequest) {
   const adminClient = getSupabaseAdmin();
   if (!adminClient) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    console.warn('[Supabase] Database not configured, falling back to local products');
+    return NextResponse.json({ products: DEFAULT_PRODUCTS });
   }
 
-  const { data, error } = await adminClient
-    .from('products')
-    .select('*')
-    .order('created_at', { ascending: false });
+  try {
+    const { data, error } = await adminClient
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('[Supabase] GET products failed:', error);
-    return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    if (error) {
+      console.error('[Supabase] GET products failed, falling back to local products:', error);
+      return NextResponse.json({ products: DEFAULT_PRODUCTS });
+    }
+
+    const productsList = data && data.length > 0 ? data : DEFAULT_PRODUCTS;
+    return NextResponse.json({ products: productsList });
+  } catch (err) {
+    console.error('[Supabase] Exception in GET products, falling back to local products:', err);
+    return NextResponse.json({ products: DEFAULT_PRODUCTS });
   }
-
-  return NextResponse.json({ products: data || [] });
 }
 
 export async function POST(req: NextRequest) {

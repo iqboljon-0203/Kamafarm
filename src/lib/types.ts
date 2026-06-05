@@ -1,4 +1,8 @@
-// lib/types.ts
+export interface LeafletSection {
+  title: string;
+  content: string[];
+}
+
 export interface Product {
   id: string;
   name_uz: string;
@@ -13,6 +17,8 @@ export interface Product {
   image: string;
   badge?: string;
   telegramlink?: string;
+  leaflet_uz?: LeafletSection[];
+  leaflet_ru?: LeafletSection[];
 }
 
 export interface Lead {

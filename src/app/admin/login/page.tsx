@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
             boxShadow: '0 8px 24px rgba(4,67,44,0.2)',
             position: 'relative', overflow: 'hidden'
           }}>
-            <Image src="/logo.png" alt="Kamafarm Logo" fill style={{ objectFit: 'contain', padding: 4 }} />
+            <Image src="/icon.png" alt="Kamafarm Logo" fill style={{ objectFit: 'contain', padding: 4 }} />
           </div>
           <h1 style={{ fontSize: 20, fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em', marginBottom: 6 }}>
             Kamafarm Admin

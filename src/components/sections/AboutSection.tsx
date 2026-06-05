@@ -75,7 +75,7 @@ export default function AboutSection() {
               {t.about.description}
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {['GMP sertifikatlangan', 'O\'zbek-Hindiston hamkorligi', 'Farmatsevt mutaxassislar jamoasi'].map((item, i) => (
+              {((t.about as any).features || []).map((item: string, i: number) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <CheckCircle2 size={18} color="#10B981" strokeWidth={2.5} />
                   <span style={{ fontSize: 14, color: '#374151', fontWeight: 500 }}>{item}</span>

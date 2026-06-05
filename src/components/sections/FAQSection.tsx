@@ -14,12 +14,12 @@ function AccordionItem({ question, answer, index }: { question: string; answer: 
       viewport={{ once: true }}
       transition={{ delay: index * 0.07 }}
       style={{
-        border: `1.5px solid ${open ? 'rgba(16,185,129,0.3)' : '#E2E8F0'}`,
+        border: `1.5px solid ${open ? 'rgba(16,185,129,0.4)' : 'var(--border)'}`,
         borderRadius: 16,
         overflow: 'hidden',
-        background: open ? '#F0FDF4' : 'white',
+        background: open ? 'var(--accent-glow)' : 'var(--card-bg)',
         transition: 'all 0.25s ease',
-        boxShadow: open ? '0 4px 20px rgba(16,185,129,0.08)' : '0 1px 4px rgba(0,0,0,0.03)',
+        boxShadow: open ? '0 4px 20px rgba(16,185,129,0.08)' : 'var(--shadow-sm)',
       }}
     >
       <button
@@ -35,17 +35,17 @@ function AccordionItem({ question, answer, index }: { question: string; answer: 
         {/* Number */}
         <div style={{
           width: 32, height: 32, borderRadius: 10, flexShrink: 0,
-          background: open ? '#04432C' : '#F1F5F9',
+          background: open ? 'var(--primary)' : 'var(--light-2)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 12, fontWeight: 700,
-          color: open ? 'white' : '#64748B',
+          color: open ? 'white' : 'var(--text-muted)',
           transition: 'all 0.2s ease',
         }}>
           {String(index + 1).padStart(2, '0')}
         </div>
         <span style={{
           flex: 1, fontSize: 15, fontWeight: 600,
-          color: open ? '#04432C' : '#0F172A',
+          color: open ? 'var(--primary)' : 'var(--dark)',
           lineHeight: 1.4, transition: 'color 0.2s ease',
         }}>
           {question}
@@ -55,11 +55,11 @@ function AccordionItem({ question, answer, index }: { question: string; answer: 
           transition={{ duration: 0.3 }}
           style={{
             width: 32, height: 32, borderRadius: '50%', flexShrink: 0,
-            background: open ? '#04432C' : '#F1F5F9',
+            background: open ? 'var(--primary)' : 'var(--light-2)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}
         >
-          <ChevronDown size={16} color={open ? 'white' : '#64748B'} strokeWidth={2.5} />
+          <ChevronDown size={16} color={open ? 'white' : 'var(--text-muted)'} strokeWidth={2.5} />
         </motion.div>
       </button>
 
@@ -75,7 +75,7 @@ function AccordionItem({ question, answer, index }: { question: string; answer: 
             <div style={{
               padding: '0 24px 22px 72px',
               fontSize: 14, lineHeight: 1.75,
-              color: '#475569',
+              color: 'var(--text-muted)',
             }}>
               {answer}
             </div>
@@ -90,7 +90,7 @@ export default function FAQSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="faq" className="section-py" style={{ background: 'white' }}>
+    <section id="faq" className="section-py" style={{ background: 'var(--light)' }}>
       <div className="container">
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           {/* Header */}
@@ -140,12 +140,12 @@ export default function FAQSection() {
             viewport={{ once: true }}
             style={{
               marginTop: 48, textAlign: 'center',
-              padding: '32px', background: '#F0FDF4',
-              borderRadius: 20, border: '1px solid rgba(16,185,129,0.15)',
+              padding: '32px', background: 'var(--accent-glow)',
+              borderRadius: 20, border: '1.5px solid var(--border)',
             }}
           >
             <p style={{ fontSize: 15, color: '#374151', marginBottom: 20 }}>
-              Savolingiz javob topmadimu? Biz bilan bog'laning!
+              {(t.faq as any).ctaText}
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
@@ -155,14 +155,14 @@ export default function FAQSection() {
                 className="btn btn-primary"
                 style={{ textDecoration: 'none', fontSize: 14 }}
               >
-                Telegram orqali yozing
+                {(t.faq as any).ctaTelegram}
               </a>
               <a
                 href="tel:+998906031428"
                 className="btn btn-outline"
                 style={{ textDecoration: 'none', fontSize: 14 }}
               >
-                Qo'ng'iroq qiling
+                {(t.faq as any).ctaCall}
               </a>
             </div>
           </motion.div>

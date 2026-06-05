@@ -1,14 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Menu, X, Sun, Moon } from 'lucide-react';
+import { Phone, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { Language } from '@/lib/i18n';
 
 const navLinks = [
   { key: 'about', href: '#about' },
-  { key: 'mission', href: '#mission' },
   { key: 'products', href: '#products' },
   { key: 'b2b', href: '#b2b' },
   { key: 'faq', href: '#faq' },
@@ -20,6 +19,11 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    localStorage.removeItem('theme');
+    document.documentElement.classList.remove('dark');
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -41,7 +45,7 @@ export default function Header() {
         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800 shadow-sm'
+            ? 'bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm'
             : 'bg-transparent'
         }`}
       >
@@ -51,27 +55,12 @@ export default function Header() {
             <motion.a
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}
+              style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div style={{
-                width: 36, height: 36, borderRadius: '50%',
-                background: 'white',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 4px 12px rgba(4,67,44,0.15)',
-                overflow: 'hidden',
-                position: 'relative'
-              }}>
-                <Image src="/logo.png" alt="Kamafarm Logo" fill sizes="36px" style={{ objectFit: 'contain', padding: 2 }} />
-              </div>
-              <div>
-                <div style={{ fontWeight: 800, fontSize: 15, color: '#04432C', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-                  Kamafarm
-                </div>
-                <div style={{ fontWeight: 500, fontSize: 10, color: '#10B981', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                  Healthcare
-                </div>
+              <div style={{ position: 'relative' }} className="w-[160px] h-[32px] md:w-[220px] md:h-[44px]">
+                <Image src="/logo-v2.png" alt="Kamafarm Healthcare" fill sizes="(max-width: 768px) 160px, 220px" style={{ objectFit: 'contain', objectPosition: 'left' }} priority />
               </div>
             </motion.a>
 
@@ -107,7 +96,7 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* Right: Lang + CTA */}
+            {/* Right: Lang + Theme + CTA */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               {/* Language Switcher */}
               <div style={{
@@ -181,7 +170,10 @@ export default function Header() {
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             style={{
               position: 'fixed', inset: 0, zIndex: 998,
-              background: '#04432C', display: 'flex', flexDirection: 'column',
+              background: 'rgba(4, 67, 44, 0.85)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              display: 'flex', flexDirection: 'column',
               padding: '100px 32px 40px',
             }}
           >
@@ -199,18 +191,9 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 48 }}>
-              <div style={{
-                width: 40, height: 40, borderRadius: '50%',
-                background: 'white',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                position: 'relative', overflow: 'hidden'
-              }}>
-                <Image src="/logo.png" alt="Kamafarm Logo" fill style={{ objectFit: 'contain', padding: 2 }} />
-              </div>
-              <div>
-                <div style={{ fontWeight: 800, fontSize: 18, color: 'white' }}>Kamafarm</div>
-                <div style={{ fontSize: 11, color: '#34D399', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Healthcare</div>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 48 }}>
+              <div style={{ position: 'relative', width: 220, height: 44 }}>
+                <Image src="/logo-v2.png" alt="Kamafarm Healthcare" fill style={{ objectFit: 'contain', objectPosition: 'left' }} />
               </div>
             </div>
 

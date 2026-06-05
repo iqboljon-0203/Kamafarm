@@ -1,7 +1,6 @@
-require('dotenv').config({ path: '.env.local' });
-const { createClient } = require('@supabase/supabase-js');
+import { Product } from './types';
 
-const PRODUCTS = [
+export const DEFAULT_PRODUCTS: Product[] = [
   {
     id: 'fiziobrain-dha',
     name_uz: 'Fiziobrain DHA',
@@ -13,7 +12,7 @@ const PRODUCTS = [
     usage_uz: '3 yoshdan oshgan bolalar uchun. Kuniga 5 ml (1 o\'lchov qoshig\'i) ovqatdan keyin qabul qilinadi.',
     usage_ru: 'Для детей старше 3 лет. Принимать по 5 мл (1 мерная ложка) в день после еды.',
     category: 'Miya faoliyati',
-    image: '/fiziobrain.jpg',
+    image: '/fiziobrain-mockup.jpg',
     badge: 'Uzbekistan-Indian Partnership',
     telegramlink: 'https://t.me/kamafarm_bot?start=fiziobrain',
     leaflet_uz: [
@@ -52,7 +51,7 @@ const PRODUCTS = [
         title: '5. Fiziobrain DHA suspenziyasini saqlash sharoiti',
         content: [
           'Bolalar qo\'li yetmaydigan joyda saqlang.',
-          '25°C dan past haroraterda, quruq va yorug\'likdan himoyalangan joyda saqlansin.',
+          '25°C dan past haroratda, quruq va yorug\'likdan himoyalangan joyda saqlansin.',
           'Yaroqlilik muddati tugaganidan keyin ishlatmang.'
         ]
       },
@@ -146,7 +145,7 @@ const PRODUCTS = [
     usage_uz: 'Kattalarga kuniga 2 marta 10 ml, bolalarga kuniga 1 marta 5 ml ovqatdan oldin qabul qilinadi.',
     usage_ru: 'Взрослым — 2 раза в день по 10 мл, детям — 1 раз в день по 5 мл до еды.',
     category: 'Kamqonlik',
-    image: '/ferroglob.jpg',
+    image: '/ferroglob-mockup.jpg',
     badge: 'Uzbekistan-Indian Partnership',
     telegramlink: 'https://t.me/kamafarm_bot?start=ferro-glob',
     leaflet_uz: [
@@ -402,5 +401,3 @@ const PRODUCTS = [
     ]
   }
 ];
-
-module.exports = PRODUCTS;

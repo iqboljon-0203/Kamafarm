@@ -3,16 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Store } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
-const partners = [
-  { id: 1, name: 'Grand Pharm', city: 'Toshkent' },
-  { id: 2, name: 'Oson Apteka', city: "O'zbekiston" },
-  { id: 3, name: 'MedLine', city: 'Samarqand' },
-  { id: 4, name: 'PharmExpo', city: 'Namangan' },
-  { id: 5, name: 'Baraka Apteka', city: 'Buxoro' },
-  { id: 6, name: 'Vita Plus', city: 'Andijon' },
-  { id: 7, name: 'HealthZone', city: 'Farg\'ona' },
-  { id: 8, name: 'NatureMed', city: 'Qarshi' },
-];
+
 
 export default function DistributionSection() {
   const { t } = useLanguage();
@@ -63,9 +54,9 @@ export default function DistributionSection() {
               display: 'grid',
               gap: 16,
             }}>
-              {partners.map((partner, i) => (
+              {((t.distribution as any).partnersList || []).map((partner: { name: string; city: string }, i: number) => (
                 <motion.div
-                  key={partner.id}
+                  key={partner.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -129,10 +120,10 @@ export default function DistributionSection() {
                 </div>
                 <div>
                   <div style={{ fontSize: 15, fontWeight: 800, color: 'white', marginBottom: 2 }}>
-                    Bosh ofis — {t.distribution.mapTitle}
+                    {(t.distribution as any).headOffice} — {t.distribution.mapTitle}
                   </div>
                   <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>
-                    г. Самарканд, ул. Зарафшон, мсг Казиарик
+                    {t.footer.address}
                   </div>
                 </div>
               </div>
@@ -154,12 +145,11 @@ export default function DistributionSection() {
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               }}>
                 <div className="map-phones" style={{ display: 'flex', gap: 16 }}>
-                  <div style={{ fontSize: 12, color: '#64748B' }}>
-                    📞 <strong>+998 (90) 603-14-28</strong>
-                  </div>
-                  <div style={{ fontSize: 12, color: '#64748B' }}>
-                    📞 <strong>+998 (93) 720-55-56</strong>
-                  </div>
+                  {t.footer.phones.map((phone, i) => (
+                    <div key={i} style={{ fontSize: 12, color: '#64748B' }}>
+                      📞 <strong>{phone}</strong>
+                    </div>
+                  ))}
                 </div>
                 <a
                   href="https://maps.google.com/?q=Samarkand,Zarafshon"

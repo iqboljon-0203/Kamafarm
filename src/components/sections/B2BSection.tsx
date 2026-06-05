@@ -38,7 +38,7 @@ export default function B2BSection() {
   };
 
   return (
-    <section id="b2b" className="section-py" style={{ background: '#F8FAFC' }}>
+    <section id="b2b" className="section-py" style={{ background: 'var(--light-2)' }}>
       <div className="container">
         {/* Header */}
         <motion.div
@@ -52,11 +52,11 @@ export default function B2BSection() {
           </span>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
-            fontWeight: 900, letterSpacing: '-0.03em', color: '#0F172A', marginBottom: 16,
+            fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--dark)', marginBottom: 16,
           }}>
             {t.b2b.heading}
           </h2>
-          <p style={{ fontSize: 15, color: '#64748B', maxWidth: 480, margin: '0 auto' }}>
+          <p style={{ fontSize: 15, color: 'var(--text-muted)', maxWidth: 480, margin: '0 auto' }}>
             {t.b2b.subtitle}
           </p>
         </motion.div>
@@ -84,12 +84,12 @@ export default function B2BSection() {
                     transition={{ delay: i * 0.1, duration: 0.5 }}
                     style={{
                       display: 'flex', gap: 16,
-                      padding: 24, background: 'white',
-                      borderRadius: 16, border: '1px solid #E2E8F0',
-                      boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                      padding: 24, background: 'var(--card-bg)',
+                      borderRadius: 16, border: '1px solid var(--border)',
+                      boxShadow: 'var(--shadow-sm)',
                       transition: 'all 0.2s ease',
                     }}
-                    whileHover={{ boxShadow: '0 8px 24px rgba(0,0,0,0.08)', y: -2 } as Parameters<typeof motion.div>[0]['whileHover']}
+                    whileHover={{ boxShadow: 'var(--shadow-md)', y: -2 } as Parameters<typeof motion.div>[0]['whileHover']}
                   >
                     <div style={{
                       width: 48, height: 48, borderRadius: 14, flexShrink: 0,
@@ -100,12 +100,12 @@ export default function B2BSection() {
                     </div>
                     <div>
                       <h3 style={{
-                        fontSize: 15, fontWeight: 700, color: '#0F172A',
+                        fontSize: 15, fontWeight: 700, color: 'var(--dark)',
                         letterSpacing: '-0.01em', marginBottom: 6,
                       }}>
                         {benefit.title}
                       </h3>
-                      <p style={{ fontSize: 13, lineHeight: 1.6, color: '#64748B' }}>
+                      <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-muted)' }}>
                         {benefit.description}
                       </p>
                     </div>
@@ -124,15 +124,15 @@ export default function B2BSection() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <div style={{
-              background: 'white', borderRadius: 24,
-              border: '1px solid #E2E8F0',
+              background: 'var(--card-bg)', borderRadius: 24,
+              border: '1px solid var(--border)',
               padding: '40px',
-              boxShadow: '0 8px 40px rgba(0,0,0,0.06)',
+              boxShadow: 'var(--shadow-md)',
               position: 'sticky', top: 100,
             }}>
               <div style={{ marginBottom: 32 }}>
                 <h3 style={{
-                  fontSize: 20, fontWeight: 800, color: '#0F172A',
+                  fontSize: 20, fontWeight: 800, color: 'var(--dark)',
                   letterSpacing: '-0.02em', marginBottom: 8,
                 }}>
                   {t.b2b.form.heading}
@@ -141,8 +141,8 @@ export default function B2BSection() {
               </div>
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 8, letterSpacing: '0.02em' }}>
-                    Ism *
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--dark)', marginBottom: 8, letterSpacing: '0.02em' }}>
+                    {(t.b2b.form as any).nameLabel}
                   </label>
                   <input
                     className="input"
@@ -154,8 +154,8 @@ export default function B2BSection() {
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 8, letterSpacing: '0.02em' }}>
-                    Kompaniya
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--dark)', marginBottom: 8, letterSpacing: '0.02em' }}>
+                    {(t.b2b.form as any).companyLabel}
                   </label>
                   <input
                     className="input"
@@ -166,8 +166,8 @@ export default function B2BSection() {
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 8, letterSpacing: '0.02em' }}>
-                    Telefon *
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--dark)', marginBottom: 8, letterSpacing: '0.02em' }}>
+                    {(t.b2b.form as any).phoneLabel}
                   </label>
                   <IMaskInput
                     mask="+{998} (00) 000-00-00"
@@ -191,7 +191,7 @@ export default function B2BSection() {
                   {loading ? (
                     <>
                       <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                      Yuborilmoqda...
+                      {(t.b2b.form as any).submitting}
                     </>
                   ) : (
                     <>

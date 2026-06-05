@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: 'Kamafarm Healthcare',
     images: [
       {
-        url: '/hero-product.png',
+        url: '/hero-product-new.png',
         width: 1200,
         height: 630,
         alt: 'Kamafarm Healthcare Premium Products',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Kamafarm Healthcare — Premium Vitaminlar',
     description: 'O\'zbekiston-Hindiston hamkorligi asosidagi premium tabiiy vitaminlar ishlab chiqaruvchi kompaniya.',
-    images: ['/hero-product.png'],
+    images: ['/hero-product-new.png'],
   },
   robots: {
     index: true,

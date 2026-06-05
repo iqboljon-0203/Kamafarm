@@ -13,6 +13,7 @@ const navItems = [
   { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/admin/leads', icon: Users, label: 'Arizalar' },
   { href: '/admin/products', icon: Package, label: 'Mahsulotlar' },
+  { href: '/admin/about', icon: Leaf, label: 'Biz haqimizda' },
   { href: '/admin/settings', icon: Settings, label: 'Sozlamalar' },
 ];
 
@@ -80,7 +81,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             position: 'relative', overflow: 'hidden'
           }}>
-            <Image src="/logo.png" alt="Kamafarm Logo" fill style={{ objectFit: 'contain', padding: 2 }} />
+            <Image src="/icon.png" alt="Kamafarm Logo" fill style={{ objectFit: 'contain', padding: 2 }} />
           </div>
           {sidebarOpen && (
             <motion.div
