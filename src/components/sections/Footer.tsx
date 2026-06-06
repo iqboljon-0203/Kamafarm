@@ -25,7 +25,7 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer id="footer" style={{ position: 'relative', background: '#04432C', color: 'white', paddingTop: 80 }}>
+    <footer id="footer" style={{ background: '#04432C', color: 'white', paddingTop: 80 }}>
       {/* Top pattern decoration */}
       <div style={{
         position: 'absolute',

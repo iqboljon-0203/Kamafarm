@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { DEFAULT_PRODUCTS } from '@/lib/constants';
 
@@ -57,6 +58,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to create product', details: error }, { status: 500 });
   }
 
+  revalidatePath('/');
   return NextResponse.json({ product: data });
 }
 
@@ -93,6 +95,7 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to update product', details: error }, { status: 500 });
   }
 
+  revalidatePath('/');
   return NextResponse.json({ product: data });
 }
 
@@ -127,5 +130,6 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to delete product', details: error }, { status: 500 });
   }
 
+  revalidatePath('/');
   return NextResponse.json({ success: true });
 }

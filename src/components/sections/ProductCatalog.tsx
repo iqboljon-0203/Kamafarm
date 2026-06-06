@@ -230,7 +230,7 @@ function ProductModal({ product, onClose, lang, t }: {
 
           {/* CTA */}
           <a
-            href={product.telegramlink || 'https://t.me/kamafarm_bot'}
+            href={product.telegramlink || 'https://t.me/kamafarmhealthcare'}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -338,7 +338,7 @@ function ProductCard({ product, onOpen, lang, t }: {
           <ChevronRight size={14} />
         </motion.button>
         <motion.a
-          href={product.telegramlink || 'https://t.me/kamafarm_bot'}
+          href={product.telegramlink || 'https://t.me/kamafarmhealthcare'}
           target="_blank"
           rel="noopener noreferrer"
           className="btn"

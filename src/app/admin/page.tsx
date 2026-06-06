@@ -34,11 +34,16 @@ export default function AdminDashboard() {
       const leadCount = leads.length;
       const newLeadCount = leads.filter((l: any) => l.status === 'new').length;
 
+      // Fetch site visits
+      const sRes = await fetch('/api/settings');
+      const sData = await sRes.json();
+      const siteVisits = sData.settings?.site_visits || '0';
+
       setStats([
         { icon: Users, label: 'Jami arizalar', value: String(leadCount), change: 'Barcha vaqt', color: '#04432C' },
         { icon: Package, label: "Mahsulotlar soni", value: String(productCount), change: 'Katalogda', color: '#10B981' },
         { icon: TrendingUp, label: 'Yangi arizalar', value: String(newLeadCount), change: 'Ko\'rilmagan', color: '#F59E0B' },
-        { icon: Activity, label: 'Sayt tashrifi', value: '1.2K', change: 'Demo', color: '#8B5CF6' },
+        { icon: Activity, label: 'Sayt tashrifi', value: siteVisits, change: 'Haqiqiy raqam', color: '#8B5CF6' },
       ]);
     } catch (error) {
       console.error('Failed to fetch stats', error);

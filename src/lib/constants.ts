@@ -12,9 +12,9 @@ export const DEFAULT_PRODUCTS: Product[] = [
     usage_uz: '3 yoshdan oshgan bolalar uchun. Kuniga 5 ml (1 o\'lchov qoshig\'i) ovqatdan keyin qabul qilinadi.',
     usage_ru: 'Для детей старше 3 лет. Принимать по 5 мл (1 мерная ложка) в день после еды.',
     category: 'Miya faoliyati',
-    image: '/fiziobrain-mockup.jpg',
+    image: '/fiziobrain.jpg',
     badge: 'Uzbekistan-Indian Partnership',
-    telegramlink: 'https://t.me/kamafarm_bot?start=fiziobrain',
+    telegramlink: 'https://t.me/kamafarmhealthcare?start=fiziobrain',
     leaflet_uz: [
       {
         title: '1. Fiziobrain DHA suspenziyasi nima va u nima uchun ishlatiladi?',
@@ -145,9 +145,9 @@ export const DEFAULT_PRODUCTS: Product[] = [
     usage_uz: 'Kattalarga kuniga 2 marta 10 ml, bolalarga kuniga 1 marta 5 ml ovqatdan oldin qabul qilinadi.',
     usage_ru: 'Взрослым — 2 раза в день по 10 мл, детям — 1 раз в день по 5 мл до еды.',
     category: 'Kamqonlik',
-    image: '/ferroglob-mockup.jpg',
+    image: '/ferroglob.jpg',
     badge: 'Uzbekistan-Indian Partnership',
-    telegramlink: 'https://t.me/kamafarm_bot?start=ferro-glob',
+    telegramlink: 'https://t.me/kamafarmhealthcare?start=ferro-glob',
     leaflet_uz: [
       {
         title: '1. Ferro-Glob suspenziyasi nima va u nima uchun ishlatiladi?',
@@ -282,7 +282,7 @@ export const DEFAULT_PRODUCTS: Product[] = [
     category: 'Bolalar uchun',
     image: '/fiziobrain-kiddrop.jpg',
     badge: 'Uzbekistan-Indian Partnership',
-    telegramlink: 'https://t.me/kamafarm_bot?start=fiziobrain-kiddrop',
+    telegramlink: 'https://t.me/kamafarmhealthcare?start=fiziobrain-kiddrop',
     leaflet_uz: [
       {
         title: '1. Fiziobrain Kid Drop nima va u nima uchun ishlatiladi?',

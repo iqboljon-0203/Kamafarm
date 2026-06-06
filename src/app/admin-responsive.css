@@ -1,0 +1,19 @@
+/* Admin Responsive Classes */
+.grid-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-2-cols-sm { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.grid-3-cols-sm { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.grid-4-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+@media (max-width: 768px) {
+  .grid-2-cols, .grid-2-cols-sm, .grid-3-cols, .grid-3-cols-sm, .grid-4-cols {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+.tabs-container {
+  display: flex; gap: 8px; margin-bottom: 32px; border-bottom: 1px solid #E2E8F0; padding-bottom: 2px;
+  overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.tabs-container::-webkit-scrollbar { display: none; }

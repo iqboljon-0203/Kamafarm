@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Plus, Edit2, Trash2, X, Save, Package, Image as ImageIcon } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Save, Package, Image as ImageIcon, Search } from 'lucide-react';
 import type { Product } from '@/lib/types';
 
 const categories = ['Miya faoliyati', 'Kamqonlik', 'Bolalar uchun', 'Kattalar uchun'];
@@ -162,7 +162,7 @@ function ProductFormModal({ product, onSave, onClose }: {
           </div>
 
           {/* Names */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="grid-2-cols-sm">
             <div>
               <label style={labelStyle}>Nomi (UZ)</label>
               <input style={inputStyle} value={form.name_uz || ''} onChange={(e) => update('name_uz', e.target.value)} placeholder="Uzbekcha nom" />
@@ -174,7 +174,7 @@ function ProductFormModal({ product, onSave, onClose }: {
           </div>
 
           {/* Descriptions */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="grid-2-cols-sm">
             <div>
               <label style={labelStyle}>Tavsif (UZ)</label>
               <textarea style={{ ...inputStyle, height: 100, resize: 'vertical' }} value={form.description_uz || ''} onChange={(e) => update('description_uz', e.target.value)} placeholder="Uzbekcha tavsif" />
@@ -186,7 +186,7 @@ function ProductFormModal({ product, onSave, onClose }: {
           </div>
 
           {/* Composition */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="grid-2-cols-sm">
             <div>
               <label style={labelStyle}>Tarkibi (UZ)</label>
               <textarea style={{ ...inputStyle, height: 80, resize: 'vertical' }} value={form.composition_uz || ''} onChange={(e) => update('composition_uz', e.target.value)} placeholder="Tarkibi uzbekcha" />
@@ -198,7 +198,7 @@ function ProductFormModal({ product, onSave, onClose }: {
           </div>
 
           {/* Usage */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="grid-2-cols-sm">
             <div>
               <label style={labelStyle}>Qo'llash (UZ)</label>
               <textarea style={{ ...inputStyle, height: 80, resize: 'vertical' }} value={form.usage_uz || ''} onChange={(e) => update('usage_uz', e.target.value)} placeholder="Qo'llash usuli uzbekcha" />
@@ -212,7 +212,7 @@ function ProductFormModal({ product, onSave, onClose }: {
           {/* Telegram link */}
           <div>
             <label style={labelStyle}>Telegram havola</label>
-            <input style={inputStyle} value={form.telegramlink || ''} onChange={(e) => update('telegramlink', e.target.value)} placeholder="https://t.me/kamafarm_bot?start=product-id" />
+            <input style={inputStyle} value={form.telegramlink || ''} onChange={(e) => update('telegramlink', e.target.value)} placeholder="https://t.me/kamafarmhealthcare?start=product-id" />
           </div>
 
           {/* Save button */}
@@ -235,6 +235,13 @@ export default function ProductsAdminPage() {
   const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [addNew, setAddNew] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+
+  const filteredProducts = products.filter(p => 
+    p.name_uz.toLowerCase().includes(search.toLowerCase()) || 
+    (p.name_ru || '').toLowerCase().includes(search.toLowerCase()) ||
+    p.category.toLowerCase().includes(search.toLowerCase())
+  );
 
   useEffect(() => {
     fetchProducts();
@@ -268,10 +275,26 @@ export default function ProductsAdminPage() {
   };
 
   const handleDelete = async (id: string) => {
+    const productToDelete = products.find(p => p.id === id);
+    
+    // First delete from DB
     await fetch(`/api/products?id=${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${getToken()}` }
     });
+
+    // Then delete image from storage if it's a Supabase URL
+    if (productToDelete?.image && productToDelete.image.includes('supabase.co')) {
+      try {
+        await fetch(`/api/delete-file?url=${encodeURIComponent(productToDelete.image)}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${getToken()}` }
+        });
+      } catch (e) {
+        console.error('Failed to delete image from storage', e);
+      }
+    }
+
     fetchProducts();
     setDeleteId(null);
   };
@@ -286,10 +309,25 @@ export default function ProductsAdminPage() {
           </h1>
           <p style={{ fontSize: 14, color: '#64748B' }}>{products.length} ta mahsulot</p>
         </div>
-        <button onClick={() => setAddNew(true)} className="btn btn-primary" style={{ gap: 8, fontSize: 13 }}>
-          <Plus size={16} />
-          Yangi mahsulot
-        </button>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div style={{ position: 'relative' }}>
+            <Search size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
+            <input
+              style={{
+                padding: '10px 12px 10px 36px', border: '1.5px solid #E2E8F0',
+                borderRadius: 10, fontSize: 13, outline: 'none', background: 'white',
+                width: 240, fontFamily: 'inherit',
+              }}
+              placeholder="Mahsulot qidirish..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <button onClick={() => setAddNew(true)} className="btn btn-primary" style={{ gap: 8, fontSize: 13 }}>
+            <Plus size={16} />
+            Yangi mahsulot
+          </button>
+        </div>
       </div>
 
       {/* Products table */}
@@ -314,13 +352,18 @@ export default function ProductsAdminPage() {
           <div>Amallar</div>
         </div>
 
-        {products.map((product, i) => (
-          <div
-            key={product.id}
+        {filteredProducts.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '60px 20px', color: '#94A3B8', fontSize: 14 }}>
+            Mahsulot topilmadi
+          </div>
+        ) : (
+          filteredProducts.map((product, i) => (
+            <div
+              key={product.id}
             style={{
               display: 'grid', gridTemplateColumns: '60px 1fr 120px 1fr 100px',
               padding: '16px 20px', alignItems: 'center',
-              borderBottom: i < products.length - 1 ? '1px solid #F1F5F9' : 'none',
+              borderBottom: i < filteredProducts.length - 1 ? '1px solid #F1F5F9' : 'none',
               transition: 'background 0.15s ease',
             }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#F8FAFC'; }}
@@ -384,7 +427,7 @@ export default function ProductsAdminPage() {
               </button>
             </div>
           </div>
-        ))}
+        )))}
       </div>
 
       {/* Product form modal */}

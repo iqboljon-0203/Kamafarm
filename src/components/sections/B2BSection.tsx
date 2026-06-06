@@ -38,7 +38,7 @@ export default function B2BSection() {
   };
 
   return (
-    <section id="b2b" className="section-py" style={{ background: 'var(--light-2)' }}>
+    <section id="b2b" className="section-py relative overflow-hidden" style={{ background: 'var(--light-2)' }}>
       <div className="container">
         {/* Header */}
         <motion.div
@@ -73,8 +73,8 @@ export default function B2BSection() {
             transition={{ duration: 0.6 }}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              {t.b2b.benefits.map((benefit, i) => {
-                const Icon = benefitIcons[i];
+              {t.b2b.benefits.map((benefit: any, i: number) => {
+                const Icon = benefitIcons[i] || Star;
                 return (
                   <motion.div
                     key={i}

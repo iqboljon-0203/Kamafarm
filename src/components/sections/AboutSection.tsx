@@ -26,7 +26,7 @@ export default function AboutSection() {
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="about" className="section-py" style={{ background: 'white' }}>
+    <section id="about" className="section-py relative overflow-hidden" style={{ background: '#F8FAFC' }}>
       <div className="container">
         {/* Section label */}
         <motion.div

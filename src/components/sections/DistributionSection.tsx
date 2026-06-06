@@ -54,7 +54,7 @@ export default function DistributionSection() {
               display: 'grid',
               gap: 16,
             }}>
-              {((t.distribution as any).partnersList || []).map((partner: { name: string; city: string }, i: number) => (
+              {((t.distribution as any).partnersList || []).map((partner: { name: string; city: string; logo?: string }, i: number) => (
                 <motion.div
                   key={partner.name}
                   initial={{ opacity: 0, y: 20 }}
@@ -72,11 +72,15 @@ export default function DistributionSection() {
                 >
                   <div style={{
                     width: 44, height: 44, borderRadius: 12,
-                    background: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(4,67,44,0.05))',
+                    background: partner.logo ? 'transparent' : 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(4,67,44,0.05))',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    flexShrink: 0
+                    flexShrink: 0, overflow: 'hidden'
                   }}>
-                    <Store size={20} color="#04432C" strokeWidth={2} />
+                    {partner.logo ? (
+                      <img src={partner.logo} alt={partner.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    ) : (
+                      <Store size={20} color="#04432C" strokeWidth={2} />
+                    )}
                   </div>
                   <div>
                     <div style={{ fontWeight: 800, fontSize: 14, color: '#0F172A', marginBottom: 2 }}>

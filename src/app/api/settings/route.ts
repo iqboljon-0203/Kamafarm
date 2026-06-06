@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getSupabaseAdmin } from '@/lib/supabase';
 
 export async function GET(req: NextRequest) {
@@ -58,6 +59,9 @@ export async function PUT(req: NextRequest) {
     console.error('[Supabase] PUT settings failed:', error);
     return NextResponse.json({ error: 'Failed to update setting', details: error }, { status: 500 });
   }
+
+  // Revalidate the home page so new settings are visible
+  revalidatePath('/');
 
   return NextResponse.json({ setting: data });
 }

@@ -46,6 +46,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       badgeProducts: dynamicSettings[`hero_badge_products_${lang}`] || baseT.hero.badgeProducts,
       badgeGmp: dynamicSettings[`hero_badge_gmp_${lang}`] || baseT.hero.badgeGmp,
       socialProof: dynamicSettings[`hero_social_proof_${lang}`] || baseT.hero.socialProof,
+      socialProofNumber: dynamicSettings['hero_social_proof_number'] || baseT.hero.socialProofNumber,
       scrollDown: dynamicSettings[`hero_scroll_down_${lang}`] || baseT.hero.scrollDown,
     },
     partners: {
@@ -60,6 +61,97 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
           }
         }
         return baseT.partners.list;
+      })(),
+    },
+    b2b: {
+      ...baseT.b2b,
+      sectionLabel: dynamicSettings[`b2b_sectionLabel_${lang}`] || baseT.b2b.sectionLabel,
+      heading: dynamicSettings[`b2b_heading_${lang}`] || baseT.b2b.heading,
+      subtitle: dynamicSettings[`b2b_subtitle_${lang}`] || baseT.b2b.subtitle,
+      benefits: (() => {
+        if (dynamicSettings[`b2b_benefits_${lang}`]) {
+          try {
+            return JSON.parse(dynamicSettings[`b2b_benefits_${lang}`]);
+          } catch (e) {
+            console.error('[LanguageContext] Failed to parse b2b_benefits JSON:', e);
+          }
+        }
+        return baseT.b2b.benefits;
+      })(),
+    },
+    distribution: {
+      ...baseT.distribution,
+      sectionLabel: dynamicSettings[`distribution_sectionLabel_${lang}`] || baseT.distribution?.sectionLabel,
+      heading: dynamicSettings[`distribution_heading_${lang}`] || baseT.distribution?.heading,
+      subtitle: dynamicSettings[`distribution_subtitle_${lang}`] || baseT.distribution?.subtitle,
+      partners: dynamicSettings[`distribution_partners_${lang}`] || baseT.distribution?.partners,
+      mapTitle: dynamicSettings[`distribution_mapTitle_${lang}`] || baseT.distribution?.mapTitle,
+      headOffice: dynamicSettings[`distribution_headOffice_${lang}`] || baseT.distribution?.headOffice,
+      partnersList: (() => {
+        if (dynamicSettings[`distribution_partnersList_${lang}`]) {
+          try {
+            return JSON.parse(dynamicSettings[`distribution_partnersList_${lang}`]);
+          } catch (e) {
+            console.error('[LanguageContext] Failed to parse distribution_partnersList JSON:', e);
+          }
+        }
+        return baseT.distribution?.partnersList;
+      })(),
+    },
+    faq: {
+      ...baseT.faq,
+      sectionLabel: dynamicSettings[`faq_sectionLabel_${lang}`] || baseT.faq?.sectionLabel,
+      heading: dynamicSettings[`faq_heading_${lang}`] || baseT.faq?.heading,
+      ctaText: dynamicSettings[`faq_ctaText_${lang}`] || (baseT.faq as any)?.ctaText,
+      ctaTelegram: dynamicSettings[`faq_ctaTelegram_${lang}`] || (baseT.faq as any)?.ctaTelegram,
+      ctaCall: dynamicSettings[`faq_ctaCall_${lang}`] || (baseT.faq as any)?.ctaCall,
+      items: (() => {
+        if (dynamicSettings[`faq_items_${lang}`]) {
+          try {
+            return JSON.parse(dynamicSettings[`faq_items_${lang}`]);
+          } catch (e) {
+            console.error('[LanguageContext] Failed to parse faq_items JSON:', e);
+          }
+        }
+        return baseT.faq?.items;
+      })(),
+    },
+    instagram: {
+      ...baseT.instagram,
+      sectionLabel: dynamicSettings[`instagram_sectionLabel_${lang}`] || baseT.instagram?.sectionLabel,
+      heading: dynamicSettings[`instagram_heading_${lang}`] || baseT.instagram?.heading,
+      handle: dynamicSettings[`instagram_handle`] || baseT.instagram?.handle,
+      bio: dynamicSettings[`instagram_bio_${lang}`] || baseT.instagram?.bio,
+      followBtn: dynamicSettings[`instagram_followBtn_${lang}`] || baseT.instagram?.followBtn,
+      stats: (() => {
+        if (dynamicSettings[`instagram_stats_${lang}`]) {
+          try {
+            return JSON.parse(dynamicSettings[`instagram_stats_${lang}`]);
+          } catch (e) {
+            console.error('[LanguageContext] Failed to parse instagram_stats JSON:', e);
+          }
+        }
+        return baseT.instagram?.stats;
+      })(),
+      profileStatsNumbers: (() => {
+        if (dynamicSettings['instagram_profileStatsNumbers']) {
+          try {
+            return JSON.parse(dynamicSettings['instagram_profileStatsNumbers']);
+          } catch (e) {
+            console.error('[LanguageContext] Failed to parse profileStatsNumbers JSON:', e);
+          }
+        }
+        return { posts: 29, followers: '1,243', following: 181 };
+      })(),
+      posts: (() => {
+        if (dynamicSettings[`instagram_posts_${lang}`]) {
+          try {
+            return JSON.parse(dynamicSettings[`instagram_posts_${lang}`]);
+          } catch (e) {
+            console.error('[LanguageContext] Failed to parse instagram_posts JSON:', e);
+          }
+        }
+        return null;
       })(),
     },
     about: {
@@ -108,8 +200,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       ],
       socialLinks: [
         { label: 'Instagram', href: dynamicSettings['instagram'] || 'https://instagram.com/kamafarm.healthcare' },
-        { label: 'Telegram', href: dynamicSettings['telegram_bot'] || 'https://t.me/kamafarm_bot' },
-        { label: 'Kanal', href: dynamicSettings['telegram_channel'] || 'https://t.me/kamafarm_channel' },
+        { label: 'Telegram', href: dynamicSettings['telegram_bot'] || 'https://t.me/kamafarmhealthcare' },
+        { label: 'Kanal', href: dynamicSettings['telegram_channel'] || 'https://t.me/kamafarmhealthcare' },
         { label: 'Facebook', href: dynamicSettings['facebook'] || 'https://facebook.com/kamafarm' },
       ],
     },

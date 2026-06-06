@@ -268,13 +268,7 @@ export default function AboutPage() {
       </div>
 
       {/* Tab Selector */}
-      <div style={{
-        display: 'flex',
-        gap: 8,
-        marginBottom: 32,
-        borderBottom: '1px solid #E2E8F0',
-        paddingBottom: 2
-      }}>
+      <div className="tabs-container">
         <button
           onClick={() => setActiveTab('general')}
           style={{
@@ -327,7 +321,7 @@ export default function AboutPage() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.2 }}
             >
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              <div className="grid-2-cols">
                 {/* UZ Texts */}
                 <div style={{ background: 'white', borderRadius: 20, border: '1px solid #E2E8F0', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.02)' }}>
                   <div style={{ padding: '16px 24px', background: '#F0FDF4', borderBottom: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -375,7 +369,7 @@ export default function AboutPage() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.2 }}
             >
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              <div className="grid-2-cols">
                 {/* Features UZ */}
                 <div style={{ background: 'white', borderRadius: 20, border: '1px solid #E2E8F0', overflow: 'hidden' }}>
                   <div style={{ padding: '16px 24px', background: '#F0FDF4', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -452,7 +446,7 @@ export default function AboutPage() {
                 </div>
                 <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}>
                   {statsUz.map((stat, i) => (
-                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 2fr', gap: 16, alignItems: 'center', background: '#F8FAFC', padding: 16, borderRadius: 12, border: '1px solid #E2E8F0' }}>
+                    <div key={i} className="grid-3-cols" style={{ alignItems: 'center', background: '#F8FAFC', padding: 16, borderRadius: 12, border: '1px solid #E2E8F0' }}>
                       <div>
                         <label className="field-label">Qiymat (Value)</label>
                         <input className="input" style={{ background: 'white' }} type="text" value={stat.value} onChange={(e) => updateStatValue(i, e.target.value)} placeholder="1200+" />
@@ -487,7 +481,7 @@ export default function AboutPage() {
                         </span>
                       </div>
 
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                      <div className="grid-2-cols-sm" style={{ marginBottom: 16 }}>
                         <div>
                           <label className="field-label">Sarlavha (UZ)</label>
                           <input className="input" style={{ background: 'white' }} type="text" value={valCard.title} onChange={(e) => updateValueTitleUz(i, e.target.value)} placeholder="Sifat kafolati" />
@@ -498,7 +492,7 @@ export default function AboutPage() {
                         </div>
                       </div>
 
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                      <div className="grid-2-cols-sm">
                         <div>
                           <label className="field-label">Tavsif (UZ)</label>
                           <textarea className="input" rows={2} style={{ background: 'white', resize: 'vertical', fontFamily: 'inherit', padding: 10 }} value={valCard.description} onChange={(e) => updateValueDescUz(i, e.target.value)} placeholder="Tavsif matni..." />
@@ -570,6 +564,21 @@ export default function AboutPage() {
           margin-bottom: 8px;
           text-transform: uppercase;
           letter-spacing: 0.04em;
+        }
+        .tabs-container {
+          display: flex; gap: 8px; margin-bottom: 32px; border-bottom: 1px solid #E2E8F0; padding-bottom: 2px;
+          overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .tabs-container::-webkit-scrollbar { display: none; }
+        .grid-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3-cols { display: grid; grid-template-columns: 1fr 2fr 2fr; gap: 16px; }
+        .grid-2-cols-sm { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        @media (max-width: 768px) {
+          .grid-2-cols, .grid-3-cols, .grid-2-cols-sm {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
         }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       `}</style>

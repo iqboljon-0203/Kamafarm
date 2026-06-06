@@ -23,6 +23,7 @@ export const translations = {
       badgeProducts: 'Premium mahsulotlar',
       badgeGmp: 'Sertifikatlangan',
       socialProof: 'mijoz ishonadi',
+      socialProofNumber: '1,200+',
       scrollDown: 'Pastga suring',
     },
     partners: {
@@ -220,8 +221,8 @@ export const translations = {
       },
       socialLinks: [
         { label: 'Instagram', href: 'https://instagram.com/kamafarm.healthcare' },
-        { label: 'Telegram', href: 'https://t.me/kamafarm_bot' },
-        { label: 'Kanal', href: 'https://t.me/kamafarm_channel' },
+        { label: 'Telegram', href: 'https://t.me/kamafarmhealthcare' },
+        { label: 'Kanal', href: 'https://t.me/kamafarmhealthcare' },
         { label: 'Facebook', href: 'https://facebook.com/kamafarm' },
       ],
     },
@@ -247,6 +248,7 @@ export const translations = {
       badgeProducts: 'Премиум продукты',
       badgeGmp: 'Сертифицирован',
       socialProof: 'клиентов доверяют',
+      socialProofNumber: '1,200+',
       scrollDown: 'Листайте вниз',
     },
     partners: {
@@ -447,8 +449,8 @@ export const translations = {
       },
       socialLinks: [
         { label: 'Instagram', href: 'https://instagram.com/kamafarm.healthcare' },
-        { label: 'Telegram', href: 'https://t.me/kamafarm_bot' },
-        { label: 'Kanal', href: 'https://t.me/kamafarm_channel' },
+        { label: 'Telegram', href: 'https://t.me/kamafarmhealthcare' },
+        { label: 'Kanal', href: 'https://t.me/kamafarmhealthcare' },
         { label: 'Facebook', href: 'https://facebook.com/kamafarm' },
       ],
     },

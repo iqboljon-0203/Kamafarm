@@ -149,7 +149,7 @@ export default function FAQSection() {
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
-                href="https://t.me/kamafarm_bot"
+                href="https://t.me/kamafarmhealthcare"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"

@@ -50,37 +50,57 @@ export default function PartnersSection() {
               return (
                 <div key={i} style={{
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
                   background: 'transparent',
                   minWidth: 140,
-                  height: 48,
-                  position: 'relative'
-                }}>
+                  gap: 12,
+                  position: 'relative',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  const img = e.currentTarget.querySelector('img');
+                  const span = e.currentTarget.querySelector('span');
+                  if (img) {
+                    img.style.transform = 'scale(1.05)';
+                  }
+                  if (span) {
+                    span.style.color = '#04432C';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  const img = e.currentTarget.querySelector('img');
+                  const span = e.currentTarget.querySelector('span');
+                  if (img) {
+                    img.style.transform = 'scale(1)';
+                  }
+                  if (span) {
+                    span.style.color = '#64748B';
+                  }
+                }}
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={partner.logo || '/logos/grand-pharm.svg'}
                     alt={partner.name}
                     style={{
-                      maxHeight: '100%',
+                      height: 48,
                       maxWidth: 160,
                       width: 'auto',
-                      height: 'auto',
                       objectFit: 'contain',
-                      opacity: 0.7,
-                      filter: 'grayscale(100%) brightness(0.9)',
-                      transition: 'all 0.3s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.filter = 'grayscale(0%) brightness(1)';
-                      e.currentTarget.style.opacity = '1';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.filter = 'grayscale(100%) brightness(0.9)';
-                      e.currentTarget.style.opacity = '0.7';
+                      transition: 'all 0.3s ease'
                     }}
                   />
+                  <span style={{ 
+                    fontSize: 13, 
+                    fontWeight: 600, 
+                    color: '#64748B', 
+                    whiteSpace: 'nowrap',
+                    transition: 'color 0.3s ease'
+                  }}>
+                    {partner.name}
+                  </span>
                 </div>
               );
             })}

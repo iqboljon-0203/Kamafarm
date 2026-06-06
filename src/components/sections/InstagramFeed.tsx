@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Camera, ExternalLink, Heart, MessageCircle, Users, Grid3X3, UserPlus } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
-const instagramPosts = [
+const defaultInstagramPosts = [
   {
     id: 1,
     image: '/instagram-1.png',
@@ -55,14 +55,16 @@ const instagramPosts = [
   },
 ];
 
-const profileStats = {
-  posts: 29,
-  followers: '1,243',
-  following: 181,
-};
-
 export default function InstagramFeed() {
   const { t } = useLanguage();
+  
+  const profileStats = (t.instagram as any)?.profileStatsNumbers || {
+    posts: 29,
+    followers: '1,243',
+    following: 181,
+  };
+
+  const instagramPosts = (t.instagram as any)?.posts || defaultInstagramPosts;
 
   return (
     <section className="section-py" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #F0FDF4 50%, #ECFDF5 100%)' }}>
@@ -192,7 +194,7 @@ export default function InstagramFeed() {
           }}
           className="instagram-grid"
         >
-          {instagramPosts.map((post, i) => (
+          {instagramPosts.map((post: any, i: number) => (
             <motion.a
               key={post.id}
               href={post.href}
@@ -265,7 +267,7 @@ export default function InstagramFeed() {
                     WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
                     lineHeight: 1.5, fontWeight: 500,
                   }}>
-                    {((t.instagram as any).posts?.[i] || post.caption)}
+                    {post.caption}
                   </div>
                 </div>
               </motion.div>

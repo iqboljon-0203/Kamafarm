@@ -182,7 +182,7 @@ export default function HeroSection() {
                   ))}
                 </div>
                 <div style={{ fontSize: 12, color: '#64748B', fontWeight: 500 }}>
-                  <span style={{ fontWeight: 700, color: '#0F172A' }}>1,200+</span> {t.hero.socialProof}
+                  <span style={{ fontWeight: 700, color: '#0F172A' }}>{t.hero.socialProofNumber}</span> {t.hero.socialProof}
                 </div>
               </div>
             </motion.div>

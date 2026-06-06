@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Users, RefreshCw, CheckCircle2, Clock, Search } from 'lucide-react';
 
@@ -27,6 +27,8 @@ export default function LeadsPage() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   useEffect(() => {
     fetchLeads();
@@ -48,11 +50,21 @@ export default function LeadsPage() {
     setLoading(false);
   };
 
-  const filtered = leads.filter((l) =>
-    l.name.toLowerCase().includes(search.toLowerCase()) ||
-    l.phone.includes(search) ||
-    (l.company || '').toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = useMemo(() => {
+    return leads.filter((l) =>
+      l.name.toLowerCase().includes(search.toLowerCase()) ||
+      l.phone.includes(search) ||
+      (l.company || '').toLowerCase().includes(search.toLowerCase())
+    );
+  }, [leads, search]);
+
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const currentLeads = filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  // Reset page to 1 when searching
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
 
   const toggleStatus = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === 'new' ? 'contacted' : 'new';
@@ -81,9 +93,9 @@ export default function LeadsPage() {
   const newCount = leads.filter((l) => l.status === 'new').length;
 
   return (
-    <div style={{ padding: 32 }}>
+    <div className="page-container">
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
+      <div className="header-container" style={{ marginBottom: 32 }}>
         <div>
           <h1 style={{ fontSize: 24, fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em', marginBottom: 6 }}>
             Arizalar
@@ -92,8 +104,8 @@ export default function LeadsPage() {
             <span style={{ fontWeight: 700, color: '#04432C' }}>{newCount}</span> ta yangi ariza
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 12 }}>
-          <div style={{ position: 'relative' }}>
+        <div className="header-actions" style={{ gap: 12 }}>
+          <div style={{ position: 'relative', flex: 1 }}>
             <Search size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
             <input
               style={{
@@ -123,13 +135,11 @@ export default function LeadsPage() {
         background: 'white', borderRadius: 20,
         border: '1px solid #E2E8F0',
         boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-        overflow: 'hidden',
       }}>
-        {/* Table header */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 140px 160px 100px 140px 80px',
-          padding: '14px 20px',
+        <div style={{ overflowX: 'auto' }}>
+          {/* Table header */}
+          <div className="table-grid" style={{
+            padding: '14px 20px',
           background: '#F8FAFC',
           borderBottom: '1px solid #E2E8F0',
           fontSize: 11, fontWeight: 700, color: '#64748B',
@@ -154,21 +164,20 @@ export default function LeadsPage() {
             Ariza topilmadi
           </div>
         ) : (
-          filtered.map((lead, i) => (
+          currentLeads.map((lead, i) => (
             <motion.div
               key={lead.id}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: i * 0.05 }}
+              transition={{ delay: i * 0.02 }}
               style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 140px 160px 100px 140px 80px',
                 padding: '16px 20px',
                 alignItems: 'center',
-                borderBottom: i < filtered.length - 1 ? '1px solid #F1F5F9' : 'none',
+                borderBottom: i < currentLeads.length - 1 ? '1px solid #F1F5F9' : 'none',
                 transition: 'background 0.15s ease',
                 cursor: 'default',
               }}
+              className="table-grid"
               onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#F8FAFC'; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
             >
@@ -211,10 +220,76 @@ export default function LeadsPage() {
             </motion.div>
           ))
         )}
+        </div>
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, marginTop: 24 }}>
+          <button
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            style={{
+              padding: '8px 16px', borderRadius: 8, border: '1px solid #E2E8F0',
+              background: currentPage === 1 ? '#F8FAFC' : 'white', cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+              color: currentPage === 1 ? '#94A3B8' : '#0F172A', fontWeight: 600, fontSize: 13
+            }}
+          >
+            Oldingi
+          </button>
+          <span style={{ fontSize: 13, color: '#64748B', fontWeight: 600 }}>
+            {currentPage} / {totalPages} sahifa
+          </span>
+          <button
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            style={{
+              padding: '8px 16px', borderRadius: 8, border: '1px solid #E2E8F0',
+              background: currentPage === totalPages ? '#F8FAFC' : 'white', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+              color: currentPage === totalPages ? '#94A3B8' : '#0F172A', fontWeight: 600, fontSize: 13
+            }}
+          >
+            Keyingi
+          </button>
+        </div>
+      )}
 
       <style>{`
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .page-container {
+          padding: 32px;
+        }
+        .header-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .header-actions {
+          display: flex;
+        }
+        .table-grid {
+          display: grid;
+          grid-template-columns: 1fr 140px 160px 100px 140px 80px;
+          min-width: 800px;
+        }
+
+        @media (max-width: 768px) {
+          .page-container {
+            padding: 16px;
+          }
+          .header-container {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+          }
+          .header-actions {
+            width: 100%;
+          }
+          .header-actions input {
+            width: 100% !important;
+          }
+        }
       `}</style>
     </div>
   );
