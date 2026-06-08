@@ -91,8 +91,13 @@ export default function HeroSection() {
               ))}
             </motion.div>
 
-            {/* H1 */}
-            <motion.h1
+            {/* SEO Hidden H1 */}
+            <h1 className="sr-only">
+              Kamafarm Healthcare — Premium Vitaminlar, BAA va biologik faol qo'shimchalar
+            </h1>
+            
+            {/* Visual Header (H2) */}
+            <motion.h2
               custom={1} variants={fadeUp} initial="hidden" animate="visible"
               style={{
                 fontSize: 'clamp(2.5rem, 5vw, 4rem)',
@@ -115,7 +120,7 @@ export default function HeroSection() {
               </span>
               <br />
               {t.hero.heading3}
-            </motion.h1>
+            </motion.h2>
 
             {/* Subtitle */}
             <motion.p
