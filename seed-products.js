@@ -401,6 +401,169 @@ const PRODUCTS = [
       }
     ]
   }
+,
+  {
+  "id": "floraslip",
+  "name_uz": "Floraslip",
+  "name_ru": "Флораслип",
+  "description_uz": "Uyqusizlikka qarshi adaptogen vosita.",
+  "description_ru": "Адаптогенное средство от бессонницы.",
+  "composition_uz": "Melatonin, Valeriana ildizi ekstrakti, Glitsin.",
+  "composition_ru": "Мелатонин, Экстракт корней валерианы, Глицин.",
+  "usage_uz": "Uyqudan oldin qabul qilinadi.",
+  "usage_ru": "Принимать перед сном.",
+  "category": "Kattalar uchun",
+  "image": "/floraslip.jpg",
+  "badge": "Yangi",
+  "telegramlink": "https://t.me/kamafarmhealthcare?start=floraslip",
+  "leaflet_uz": [],
+  "leaflet_ru": []
+},
+  {
+  "id": "livolola",
+  "name_uz": "Livolola",
+  "name_ru": "Ливолола",
+  "description_uz": "Jigar salomatligi uchun vosita.",
+  "description_ru": "Средство для здоровья печени.",
+  "composition_uz": "N-Asetiltsistein, Silimarin, L-Ornitin, L-Aspartat, Vitaminlar va minerallar (Mg, Fe, Zn).",
+  "composition_ru": "N-Ацетилцистеин, Силимарин, L-Орнитин, L-Аспартат, Витамины и минералы (Кальций, Магний, Железо, Цинк).",
+  "usage_uz": "Kattalar uchun.",
+  "usage_ru": "Для взрослых.",
+  "category": "Kattalar uchun",
+  "image": "/livolola.jpg",
+  "badge": "Yangi",
+  "telegramlink": "https://t.me/kamafarmhealthcare?start=livolola",
+  "leaflet_uz": [],
+  "leaflet_ru": []
+},
+  {
+  "id": "zoarapid",
+  "name_uz": "ZoaRapid",
+  "name_ru": "ЗоаРапид",
+  "description_uz": "Erkaklar salomatligi uchun vosita.",
+  "description_ru": "Средство для мужского здоровья.",
+  "composition_uz": "L-Karnitin, Rux sulfat, Koferment Q10, Astaksantin, Likapin, Metilkobalamin, Natriy selenat.",
+  "composition_ru": "L-Карнитин, Цинка сульфат, Кофермент Q10, Астаксантин, Ликопин, Метилкобаламин, Селенат натрия.",
+  "usage_uz": "Kattalar uchun.",
+  "usage_ru": "Для взрослых.",
+  "category": "Kattalar uchun",
+  "image": "/zoarapid.jpg",
+  "badge": "Yangi",
+  "telegramlink": "https://t.me/kamafarmhealthcare?start=zoarapid",
+  "leaflet_uz": [],
+  "leaflet_ru": []
+},
+  {
+  "id": "nefrokulir",
+  "name_uz": "Nefrokulir",
+  "name_ru": "Нефроклир",
+  "description_uz": "Buyraklar va siydik yo'llari sog'ligi uchun.",
+  "description_ru": "Средство для почек и мочевыводящих путей.",
+  "composition_uz": "O'simliklardan tayyorlangan vosita.",
+  "composition_ru": "Средство растительного происхождения.",
+  "usage_uz": "Kattalar uchun. 30 kapsula.",
+  "usage_ru": "Для взрослых. 30 капсул.",
+  "category": "Kattalar uchun",
+  "image": "/nefrokulir.jpg",
+  "badge": "Yangi",
+  "telegramlink": "https://t.me/kamafarmhealthcare?start=nefrokulir",
+  "leaflet_uz": [
+    {
+        "title": "Chiqarish shakli va tarkibi",
+        "content": [
+            "Chiqarish shakli: kapsulalar, planshetlar 600, 1000 mg.",
+            "1 kapsulaning tarkibi:",
+            "Dorixona levisti ildizi ekstrakti - 100 mg",
+            "Oddiy tillabosh o'ti ekstrakti - 100 mg",
+            "Rozmarin barglari ekstrakti - 100 mg",
+            "Dala qirqbo'g'imi quruq ekstrakti - 15 mg"
+        ]
+    },
+    {
+        "title": "Xususiyatlari",
+        "content": [
+            "O'simliklardan tayyorlangan buyrak va siydik yo'llari kasalliklari tuzalishiga yordam beradigan vosita. Preparat spazmga, yallig'lanishga qarshi va antimikrobiyal ta'sirga ega bo'lib, yengil diuretik va tuzlarni eritish xususiyati bor.",
+            "Dorixona levisti ildizi ekstrakti – antispazmodik, diuretik va antibakterial ta'sirga ega.",
+            "Oddiy tillabosh o'ti ekstrakti - ishtahani oshiradi, me'da shirasining sekretsiyasini oshiradi, oshqozon-ichak motorikasini tezlashtiradi, yengil laksatif va antigelmintik ta'sirga ega.",
+            "Rozmarin barglari ekstrakti - yallig'lanishga qarshi, diuretik, antispazmodik va antibakterial ta'sirga ega.",
+            "Dala qirqbo'g'imi ekstrakti - diuretik va yallig'lanishga qarshi ta'sirga ega. Ushbu vositaning terapevtik ta'siri qabul qilishning birinchi kunidan boshlab namoyon bo'ladi va butun davolanish davrida kuzatiladi."
+        ]
+    },
+    {
+        "title": "Foydalanish uchun ko'rsatmalar",
+        "content": [
+            "Nefroklir biologik faol oziq-ovqat qo'shimchasi o'simlik tarkibiy qismlarining biologik ta'sirining kombinatsiyasi birinchi navbatda siydik hosil bo'lishi va chiqarilishining fiziologik jarayonlarining yaxshilanishi bilan tavsiflanadi.",
+            "Bundan tashqari, ular immunitet tizimini mustahkamlash, siydik yo'llarida mikroblarsiz muhitni saqlash, yallig'lanish va spastik jarayonlarni rivojlanish xavfini kamaytirish kabi tananing boshqa turli muhim funktsiyalarini metabolizm va regulatsiyada ham ishtirok etadi; turli tuzlar va MKD hosil bo'lish xavfini kamaytiradi.",
+            "Mahsulotning faol komponentlari, shuningdek, qon tomirlari devorlarining metabolizmini, ularning mustahkamligi va elastikligini yaxshilashga yordam beradi. Qon tomirlarining tonusini yaxshilash qon aylanishini va organlarning funktsional faoliyatini faollashtirishga yordam beradi.",
+            "Nefroklir tarkibidagi boy vitamin kompleksi ishtahani va umumiy faoliyatni yaxshilaydi, tananing sovuqqa chidamliligini oshiradi, charchoqni yo'q qiladi va siydik yo'llarining yallig'lanish kasalliklarini rivojlanish xavfini kamaytiradi."
+        ]
+    },
+    {
+        "title": "Tavsiya etiladi",
+        "content": [
+            "Kattalar va 12 yoshdan oshgan bolalar: 1 kapsuladan (tabletka) kuniga 2 marta, ovqatdan oldin yoki ovqat vaqtida qabul qilinadi. Davolashning davomiyligi - 1 oy."
+        ]
+    },
+    {
+        "title": "Qo'llash mumkin bo'lmagan holatlar va Maxsus ko'rsatmalar",
+        "content": [
+            "Qo'llash mumkin bo'lmagan holatlar: tarkibiy qismlarga individual yuqori sezuvchanlik.",
+            "Maxsus ko'rsatmalar: Biologik faol oziq-ovqat qo'shimchasi. Dori vositasi emas. Ishlatishdan oldin mutaxassis bilan maslahatlashish talab etiladi.",
+            "Homilador, emizikli ayollar va 12 yoshgacha bo'lgan bolalarga faqat shifokor ko'rsatmasi bo'yicha tavsiya etiladi.",
+            "Quruq, salqin, quyosh nurlaridan himoyalangan, bolalar qo'li etmaydigan joyda saqlang. Yaroqlilik muddati: 3 yil.",
+            "Ishlab chiqaruvchi: MChJ \"Kamafarm Healthcare\" Uzbekistan"
+        ]
+    }
+],
+  "leaflet_ru": [
+    {
+        "title": "Форма выпуска и Состав",
+        "content": [
+            "Форма выпуска: капсулы, таблетки 600, 1000 мг.",
+            "Состав 1 таблетки:",
+            "Экстракт любистока лекарственного корни - 100 мг",
+            "Экстракт золототысячника трава - 100 мг",
+            "Экстракт розмарина обыкновенного листья - 100 мг",
+            "Сухой экстракт хвоща полевого - 15 мг"
+        ]
+    },
+    {
+        "title": "Свойства",
+        "content": [
+            "Диуретическое средство растительного происхождения. Препарат оказывает мочегонное, спазмолитическое, противовоспалительное, противомикробное действие.",
+            "Экстракт любистока лекарственного корни - оказывает диуретическое, спазмолитическое и антибактериальное действие.",
+            "Экстракт золототысячника трава - повышает аппетит, повышает секрецию желудочного сока, ускоряет моторику ЖКТ, оказывает легкое слабительное и противогельминтное действие.",
+            "Экстракт розмарина обыкновенного листья - оказывает противовоспалительное, диуретическое, спазмолитическое и антибактериальное действие.",
+            "Сухой экстракт хвоща полевого - оказывает диуретическое и противовоспалительное действие. Лечебное действие проявляется уже с первого дня приема и наблюдается в течение всего периода лечения."
+        ]
+    },
+    {
+        "title": "Показания к применению",
+        "content": [
+            "Сочетание биологических эффектов растительных компонентов в биодобавке к пище Нефроклир характеризуется преимущественно улучшением физиологических процессов мочеобразования и мочевыделения.",
+            "Кроме того, они также участвуют в метаболизме и регуляции различных других важных функций организма, таких как укрепление иммунитета, сохранение в мочевых путях без микробной среды и снижение риска развития воспалительных и спастических процессов; уменьшает риск образование различных солей и МКД.",
+            "Активные компоненты продукции способствуют также улучшению обмена веществ стенок кровеносных сосудов, их прочности и эластичности. Улучшение сосудистого тонуса способствует активации кровообращения и функциональной активности органов.",
+            "Богатый витаминный комплекс в составе Нефроклир улучшает аппетит и общее самочувствие, повышает устойчивость организма к простудным процессам, устраняет утомляемость, уменьшает риск развития воспалительных заболеваний мочевыводящих путей."
+        ]
+    },
+    {
+        "title": "Рекомендуется",
+        "content": [
+            "Взрослым и детям старше 12 лет по 1 капсуле (таблеток) 2 раза в сутки, вовремя или до еды. Продолжительность приема - 1 месяц."
+        ]
+    },
+    {
+        "title": "Противопоказания и Особые указания",
+        "content": [
+            "Противопоказание: индивидуальная непереносимость компонентов.",
+            "Особые указания: Биологически активная добавка к пище. Не является лекарственным средством. Перед применением требуется консультация специалиста.",
+            "Беременным, кормящим женщинам и детям до 12 лет рекомендуется только по назначению врача.",
+            "Хранить в сухом, прохладном, защищенном от солнечных лучей, недоступном для детей месте. Срок годности: 2 года.",
+            "Производитель: ООО “Kamafarm Healthcare” Узбекистан"
+        ]
+    }
+]
+}
 ];
 
 module.exports = PRODUCTS;
